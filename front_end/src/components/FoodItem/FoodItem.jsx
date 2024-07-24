@@ -12,9 +12,10 @@ const FoodItem = ({ id, name, price, description, image }) => {
   return (
     <div className='food-item'>
       <div className="food-item-img-container">
-        <Link to={`/foodDetails/${id}`}>
+        {/* <Link to={`/foodDetails/${id}`}>
           <img src={`${url}/images/${image}`} alt={name} className="food-item-image" />
-        </Link>
+        </Link> */}
+          <img src={`${url}/images/${image}`} alt={name} className="food-item-image" />
         {token ? (
           !cartItems[id] ? (
             <img className='add' onClick={() => addToCart(id)} src={assets.add_icon_white} alt="Add to cart" />
