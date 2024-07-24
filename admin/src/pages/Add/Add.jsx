@@ -4,7 +4,7 @@ import { assets } from '../../assets/assets'
 import axios from "axios"
 import { toast } from 'react-toastify'
 
-const Add = ({url}) => {
+const Add = ({ url }) => {
 
     const [image, setImage] = useState(false);
     const [data, setData] = useState({
@@ -33,12 +33,7 @@ const Add = ({url}) => {
         formdata.append("price", Number(data.price));
         formdata.append("category", data.category);
         formdata.append("image", image);
-        if (url) {
-            const response = await axios.post(`${url}/api/food/add`, formdata);
-        }
-        else{
-            console.log("Not Found URL error")
-        }
+        const response = await axios.post(`${url}/api/food/add`, formdata);
         if (response.data.success) {
             setData({
                 name: "",
