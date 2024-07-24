@@ -1,34 +1,39 @@
-import React, { useContext } from 'react';
-// import './Fooditem.css';
-import { assets } from '../../assets/assets';
+import React, { useEffect, useState, useContext } from 'react';
+import { useParams } from 'react-router-dom';
 import { StoreContext } from '../../context/StoreContext';
+import './FoodDetails.css';
+import axios from 'axios';
 
-const FoodDetails = ({ id, name, price, description, image }) => {
-  const { cartItems, addToCart, removeFromCart, url, token } = useContext(StoreContext);
+const FoodDetails = () => {
+  const { id } = useParams();
+  const { url } = useContext(StoreContext);
+  const [foodDetail, setFoodDetail] = useState(null);
+
+  const fetchDetail = async () => {
+    try {
+      const response = await axios.get(`${url}/api/food/${id}`);
+      setFoodDetail(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching food details:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchDetail();
+  }, [id]);
+
+  if (!foodDetail) {
+    return <div>Loading...</div>;
+  }
 
   return (
-    <div className='food-item'>
-      <div className="food-item-img-container">
-        <img src={`${url}/images/${image}`} alt="" className="food-item-image" />
-        {token ? (
-          !cartItems[id] ? (
-            <img className='add' onClick={() => addToCart(id)} src={assets.add_icon_white} alt="" />
-          ) : (
-            <div className="food-item-counter">
-              <img onClick={() => removeFromCart(id)} src={assets.remove_icon_red} alt="" />
-              <p>{cartItems[id]}</p>
-              <img onClick={() => addToCart(id)} src={assets.add_icon_green} alt="" />
-            </div>
-          )
-        ) : null}
-      </div>
-      <div className="food-item-info">
-        <div className="food-item-name-rating">
-          <p>{name}</p>
-          <img src={assets.rating_starts} alt="" />
-        </div>
-        <p className="food-item-desc">{description}</p>
-        <p className="food-item-price">&#8377; {price}</p>
+    <div className="food-details">
+      <div className="fooditem">
+        <img src={`${url}/images/${foodDetail.image}`} alt={foodDetail.name} />
+        <p>{foodDetail.name}</p>
+        <p>{foodDetail.price}</p>
+        <p>{foodDetail._id}</p>
       </div>
     </div>
   );

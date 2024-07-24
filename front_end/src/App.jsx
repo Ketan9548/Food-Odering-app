@@ -6,7 +6,7 @@ import Cart from './pages/Cart/Cart'
 import { Routes, Route } from 'react-router-dom'
 import Footer from './components/Footer/Footer'
 import LogingPopup from './components/LogingPopup/LogingPopup'
-import FoodDetails from './components/FoodDetails/FoodDetails'
+// import FoodDetails from './components/FoodDetails/FoodDetails'
 import Verify from './pages/Verify/Verify'
 import Myorder from './pages/Myorders/Myorder'
 const App = () => {
@@ -15,7 +15,6 @@ const App = () => {
 
   return (
     <>
-      {/* const [showLogin,setShowLogin] = useState(false) */}
       {showLogin ? <LogingPopup setShowLogin={setShowLogin} /> : <></>}
       <div className='app'>
         <Navbar setShowLogin={setShowLogin} />
@@ -23,7 +22,7 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/placeorder' element={<PlaceOrder />} />
-          <Route path='/Fooddetails' element={<FoodDetails />} />
+          {/* <Route path='/foodDetail/:id' element={<FoodDetails />} /> */}
           <Route path='/verify' element={<Verify />} />
           <Route path='/myorders' element={<Myorder />} />
         </Routes>
