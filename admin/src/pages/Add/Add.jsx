@@ -33,7 +33,12 @@ const Add = ({url}) => {
         formdata.append("price", Number(data.price));
         formdata.append("category", data.category);
         formdata.append("image", image);
-        const response = await axios.post(`${url}/api/food/add`, formdata);
+        if (url) {
+            const response = await axios.post(`${url}/api/food/add`, formdata);
+        }
+        else{
+            console.log("Not Found URL error")
+        }
         if (response.data.success) {
             setData({
                 name: "",
