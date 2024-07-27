@@ -5,14 +5,15 @@ import { StoreContext } from '../../context/StoreContext';
 import axios from 'axios';
 
 const Verify = () => {
+    const url = "https://food-del-backend-5onc.onrender.com"
     const [searchParams, setsearchParams] = useSearchParams();
     const success = searchParams.get("success")
     const orderId = searchParams.get("orderId")
-    const { url } = useContext(StoreContext);
+    // const { url } = useContext(StoreContext);
     const Navigate = useNavigate();
 
     const verifyPayment = async () => {
-        const response = await axios.post(url,{success,orderId});
+        const response = await axios.post(url+"/api/order/verify",{success,orderId});
         if (response.data.success) {
             Navigate("/myorders");
         }
